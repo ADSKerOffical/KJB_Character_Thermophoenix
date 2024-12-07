@@ -200,8 +200,7 @@ end)
 tool.Parent = game.Players.LocalPlayer.Backpack
 
 local tool = Instance.new("Tool")
-tool.Name = "Material Mass"
-tool.ToolTip = "Release clump of matter from the ground using energy"
+tool.Name = "Ground Slam"
 tool.RequiresHandle = false
 
 local lastPressTime = 0
@@ -210,31 +209,121 @@ tool.Activated:Connect(function()
             if currentTime - lastPressTime >= 10 then
                 lastPressTime = currentTime 
 local Anim = Instance.new("Animation")
-Anim.AnimationId = "rbxassetid://73367987838559"
+Anim.AnimationId = "rbxassetid://121542660442349"
 local k = game:GetService("Players").LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
 k:Play()
 k:AdjustSpeed(1)
-  task.wait(1)
-local ball = Instance.new("Part", workspace)
-ball.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -10)
-ball.Size = Vector3.new(10, 10, 10)
-ball.Material = game.Players.LocalPlayer.Character.Humanoid.FloorMaterial
-ball.Color = Color3.new(0.6, 0.6, 0.6)
-ball.Shape = "Ball"
-ball.Velocity = Vector3.new(0, 150, 0)
-game.Debris:AddItem(ball, 15)
+  task.wait(0.4)
+local slam = Instance.new("MeshPart", workspace)
+slam.MeshId = "rbxassetid://20329976"
+slam.Size = Vector3.zero
+slam.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position 
+slam.Anchored = true
+slam.CanCollide = false
+game.Debris:AddItem(slam, 3)
 
-ball.Touched:Connect(function(hit)
- humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
-  if humanoid and humanoid.Parent ~= game.Players.LocalPlayer.Character and humanoid.Health > 0 then
+local foundHumanoids = {}
+Usuario = game.Players.LocalPlayer
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("Humanoid") and v.RootPart and v.RootPart.Parent ~= Usuario.Character then
+        local distance = (v.RootPart.Position - Usuario.Character.HumanoidRootPart.Position).magnitude
+        if distance <= 20 then
+            table.insert(foundHumanoids, v)
+        end
+    end
+end
+
+for _, humanoid in pairs(foundHumanoids) do
+ for i = 1, 5 do
 local args = {
     [1] = "SweepKickKick",
     [2] = workspace:WaitForChild(humanoid.Parent.Name)
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("AllRemoteEvents"):WaitForChild("CLientToServerR"):FireServer(unpack(args))
+ end
+end 
+
+local partTweenn2 = game:GetService("TweenService"):Create(slam, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {
+        Transparency = 1,
+        Color = Color3.new(0, 0, 0),
+        Size = Vector3.new(40, 15, 40)
+    })
+    partTweenn2:Play()
+
+spawn(function()
+local function shakeCam()
+local humanoid = game.Players.LocalPlayer.Character.Humanoid
+local camera = workspace.CurrentCamera
+local originalOffset = humanoid.CameraOffset
+
+local shakeIntensity = 3
+local shakeSpeed = 0.01
+
+function shakeCamera()
+ local shakeOffset = Vector3.new(
+  math.random(-shakeIntensity, shakeIntensity) / 10,
+  math.random(-shakeIntensity, shakeIntensity) / 10,
+  math.random(-shakeIntensity, shakeIntensity) / 10
+ )
+ local originalOffset = humanoid.CameraOffset
+ local currentTime = 0
+ local duration = shakeSpeed
+ while currentTime < duration do
+  local delta = currentTime/duration
+  humanoid.CameraOffset = originalOffset + shakeOffset * (1 - delta)
+  currentTime = currentTime + wait()
+ end
+ humanoid.CameraOffset = originalOffset
+end
+
+ for i = 1, 30 do
+  shakeCamera()
+  task.wait()
+  end
+ end
+end)
+
+spawn(function()
+  for i = 1, 10 do
+ local rock = Instance.new("Part", workspace)
+ rock.Size = Vector3.new(2, 2, 2)
+ rock.Position = slam.Position + Vector3.new(math.random(-10, 10), 0, math.random(-10, 10))
+ rock.Material = game.Players.LocalPlayer.Character.Humanoid.FloorMaterial
+ rock.Velocity = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - rock.Position).Unit * -100
+ rock.Color = Color3.new(0.5, 0.5, 0.5)
+ game.Debris:AddItem(rock, 10)
   end
 end)
+
+crater = Instance.new("MeshPart", workspace)
+    crater.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Vector3.new(0, 2.25, 0)
+    crater.MeshId = "rbxassetid://6656319394"
+    crater.Size = Vector3.new(3, 3, 3)
+    crater.Color = Color3.new(0.5, 0.5, 0.5)
+    crater.Anchored = true
+    crater.CanCollide = false
+    crater.Material = game.Players.LocalPlayer.Character.Humanoid.FloorMaterial
+    game.Debris:AddItem(crater, 10)
+    
+crater1 = Instance.new("Part", crater)
+crater1.Transparency = 1
+crater1.CanCollide = false
+crater1.Position = crater.Position - Vector3.new(0, 0, 0)
+crater1.Size = Vector3.new(50, 1, 50)
+crater1.Anchored = true
+
+dec1 = Instance.new("Decal", crater1)
+dec1.Texture = "rbxassetid://10228065900"
+dec1.Transparency = 0.1
+dec1.Face = Enum.NormalId.Top
+
+sound = Instance.new("Sound", crater)
+sound.SoundId = "rbxassetid://8588542238"
+sound.Volume = 3
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
             end
 end)
 
