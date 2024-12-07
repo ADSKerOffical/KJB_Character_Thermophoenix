@@ -348,3 +348,233 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 end)
 
 tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Holy Crimson"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 60 then
+                lastPressTime = currentTime 
+local savedPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+local savedVec = savedPos.Position
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+
+local args = {
+    [1] = "DomainSmokeAddd",
+    [2] = savedPos
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("AllRemoteEvents"):WaitForChild("CLientToServerR"):FireServer(unpack(args))
+
+sound = Instance.new("Sound", game.Workspace)
+sound.SoundId = "rbxassetid://8578316223"
+sound.Volume = 1
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
+
+local args = {
+    [1] = "FireClienTTTTTT",
+    [3] = "ADDDINGGLIGHTINGEFFECTSSSSS",
+    [4] = Vector3.new(4309.47998046875, 403.75592041015625, -3609.66015625),
+    [5] = 350,
+    [6] = true,
+    [7] = game:GetService("ReplicatedStorage"):WaitForChild("VFX"):WaitForChild("LightingEffectSSSS"):WaitForChild("BlackkKKKK"),
+    [8] = {
+        [1] = 4.5
+    },
+    [9] = {
+        ["TintColor"] = Color3.new(1, 1, 1),
+        ["Contrast"] = 0
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("AllRemoteEvents"):WaitForChild("CLientToServerR"):FireServer(unpack(args))
+
+for _, h in ipairs(workspace:GetDescendants()) do
+ if h:IsA("Humanoid") and h.Parent ~= game.Players.LocalPlayer.Character then
+local args = {
+    [1] = "BoulderCrushStunCharrr",
+    [2] = workspace:WaitForChild(h.Parent.Name)
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("AllRemoteEvents"):WaitForChild("CLientToServerR"):FireServer(unpack(args))
+ end
+end
+
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://98457346"
+local k = game:GetService("Players").LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+k:Play()
+k:AdjustSpeed(1.5)
+
+local sph = Instance.new("Part", workspace)
+sph.Color = Color3.new(1, 0, 0)
+sph.Material = "Neon"
+sph.Shape = "Ball"
+sph.Size = Vector3.zero
+sph.CanCollide = false
+
+local aura = Instance.new("MeshPart", sph)
+aura.Color = Color3.new(1, 0, 0)
+aura.Size = Vector3.new(0, 0, 0)
+aura.MeshId = "rbxassetid://5747850601"
+aura.Material = "Neon"
+aura.CanCollide = false
+aura.DoubleSided = true
+
+local joi = Instance.new("Weld", sph)
+joi.Part0 = sph
+joi.Part1 = game.Players.LocalPlayer.Character.Head
+joi.C0 = CFrame.new(0, -2, 0)
+
+local aurjoi = Instance.new("Weld", aura)
+aurjoi.Part0 = aura
+aurjoi.Part1 = sph
+aurjoi.C0 = CFrame.new(0, 0, 0)
+
+local partTweenn2 = game:GetService("TweenService"):Create(aura, TweenInfo.new(1.5, Enum.EasingStyle.Exponential), {
+       CFrame = sph.CFrame * CFrame.fromEulerAnglesXYZ(0,math.rad(360),0)
+    })
+    partTweenn2:Play()
+  task.wait(3)
+local partTweenn2 = game:GetService("TweenService"):Create(sph, TweenInfo.new(5, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(50, 50, 50)
+    })
+    partTweenn2:Play()
+local partTweenn2 = game:GetService("TweenService"):Create(aura, TweenInfo.new(5, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(13, 13, 13)
+    })
+    partTweenn2:Play()
+local partTweenn2 = game:GetService("TweenService"):Create(joi, TweenInfo.new(5, Enum.EasingStyle.Exponential), {
+        C0 = CFrame.new(0, -40, 0)
+    })
+    partTweenn2:Play()
+  task.wait(10)
+local rings = Instance.new("MeshPart", workspace)
+rings.MeshId = "rbxassetid://450674838"
+rings.Color = Color3.new(1, 0, 0)
+rings.Size = Vector3.zero
+rings.CanCollide = false
+rings.DoubleSided = false
+rings.Material = "Neon"
+
+local rinwe = Instance.new("Weld", rings)
+rinwe.Part0 = rings
+rinwe.Part1 = sph
+rinwe.C0 = CFrame.new(0, 0, 0)
+
+local partTweenn2 = game:GetService("TweenService"):Create(rings, TweenInfo.new(1, Enum.EasingStyle.Exponential), {
+         Size = Vector3.new(100, 30, 100)
+    })
+    partTweenn2:Play()
+ task.wait(3)
+local explosion = Instance.new("MeshPart", workspace)
+explosion.Anchored = true
+explosion.CanCollide = false
+explosion.Position = sph.Position
+explosion.MeshId = "rbxassetid://5747850601"
+explosion.DoubleSided = true
+explosion.Size = Vector3.zero
+explosion.Color = Color3.new(1, 0, 0)
+game.Debris:AddItem(explosion, 4)
+
+local crater = Instance.new("MeshPart", workspace)
+crater.Anchored = true
+crater.DoubleSided = true
+crater.CanCollide = false
+crater.MeshId = "rbxassetid://6656319394"
+crater.Position = savedVec
+crater.Size = Vector3.new(100, 100, 100)
+crater.Color = Color3.new(0.5, 0.5, 0.5)
+game.Debris:AddItem(crater, 60)
+
+local args = {
+    [1] = "FireClienTTTTTT",
+    [3] = "ADDDINGGLIGHTINGEFFECTSSSSS",
+    [4] = Vector3.new(4309.47998046875, 403.75592041015625, -3609.66015625),
+    [5] = 350,
+    [6] = true,
+    [7] = game:GetService("ReplicatedStorage"):WaitForChild("VFX"):WaitForChild("LightingEffectSSSS"):WaitForChild("BlackkKKKK"),
+    [8] = {
+        [1] = 5
+    },
+    [9] = {
+        ["TintColor"] = Color3.new(1, 0, 0),
+        ["Contrast"] = 0
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("AllRemoteEvents"):WaitForChild("CLientToServerR"):FireServer(unpack(args))
+
+for _, humanoid in ipairs(workspace:GetDescendants()) do
+ if humanoid:IsA("Humanoid") and humanoid.Parent ~= game.Players.LocalPlayer.Character then
+for i = 1, 70 do
+local args = {
+    [1] = "StoicBombHitt",
+    [2] = workspace:WaitForChild(humanoid.Parent.Name)
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("AllRemoteEvents"):WaitForChild("CLientToServerR"):FireServer(unpack(args))
+  end
+ end
+end
+
+spawn(function()
+local humanoid = game.Players.LocalPlayer.Character.Humanoid
+local camera = workspace.CurrentCamera
+local originalOffset = humanoid.CameraOffset
+
+local shakeIntensity = 5
+local shakeSpeed = 0.005
+
+function shakeCamera()
+ local shakeOffset = Vector3.new(
+  math.random(-shakeIntensity, shakeIntensity) / 10,
+  math.random(-shakeIntensity, shakeIntensity) / 10,
+  math.random(-shakeIntensity, shakeIntensity) / 10
+ )
+ local originalOffset = humanoid.CameraOffset
+ local currentTime = 0
+ local duration = shakeSpeed
+ while currentTime < duration do
+  local delta = currentTime/duration
+  humanoid.CameraOffset = originalOffset + shakeOffset * (1 - delta)
+  currentTime = currentTime + wait()
+ end
+ humanoid.CameraOffset = originalOffset
+end
+
+ for i = 1, 80 do
+ shakeCamera()
+  task.wait()
+ end
+end)
+
+rings:Destroy()
+sph:Destroy()
+aura:Destroy()
+
+local partTweenn2 = game:GetService("TweenService"):Create(explosion, TweenInfo.new(2, Enum.EasingStyle.Exponential), {
+        Transparency = 1,
+        Color = Color3.new(0, 0, 0),
+        Size = Vector3.new(600, 600, 600)
+    })
+    partTweenn2:Play()
+
+sound = Instance.new("Sound", game.Workspace)
+sound.SoundId = "rbxassetid://5379028763"
+sound.Volume = 3
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
+ task.wait(3)
+k:Stop()
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
