@@ -82,7 +82,7 @@ sphere:Destroy()
 for i = 1, 3 do
  local args = {
     [1] = "KjM1s-1",
-    [2] = workspace:WaitForChild(humanoid.Parent.Name),
+    [2] = workspace:WaitForChild(humanoi.Parent.Name),
     [3] = 1009,
     [4] = 100
 }
@@ -171,7 +171,7 @@ sound:Play()
 for i = 1, 2 do
 local args = {
     [1] = "KjM1s-1",
-    [2] = workspace:WaitForChild(humanoid.Parent.Name),
+    [2] = workspace:WaitForChild(humano.Parent.Name),
     [3] = 1009,
     [4] = 100
 }
